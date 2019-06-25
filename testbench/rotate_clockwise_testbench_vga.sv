@@ -1,0 +1,398 @@
+`include "../src/GLOBAL.sv"
+// ============================================================================
+// Copyright (c) 2013 by Terasic Technologies Inc.
+// ============================================================================
+//
+// Permission:
+//
+//   Terasic grants permission to use and modify this code for use
+//   in synthesis for all Terasic Development Boards and Altera Development
+//   Kits made by Terasic.  Other use of this code, including the selling
+//   ,duplication, or modification of any portion is strictly prohibited.
+//
+// Disclaimer:
+//
+//   This VHDL/Verilog or C/C++ source code is intended as a design reference
+//   which illustrates how these types of functions can be implemented.
+//   It is the user's responsibility to verify their design for
+//   consistency and functionality through the use of formal
+//   verification methods.  Terasic provides no warranty regarding the use
+//   or functionality of this code.
+//
+// ============================================================================
+//
+//  Terasic Technologies Inc
+//  9F., No.176, Sec.2, Gongdao 5th Rd, East Dist, Hsinchu City, 30070. Taiwan
+//
+//
+//                     web: http://www.terasic.com/
+//                     email: support@terasic.com
+//
+// ============================================================================
+//Date:  Thu Jul 11 11:26:45 2013
+// ============================================================================
+
+//`define ENABLE_ADC
+//`define ENABLE_AUD
+//`define ENABLE_CLOCK2
+//`define ENABLE_CLOCK3
+//`define ENABLE_CLOCK4
+`define ENABLE_CLOCK
+//`define ENABLE_DRAM
+//`define ENABLE_FAN
+//`define ENABLE_FPGA
+`define ENABLE_GPIO
+`define ENABLE_HEX
+//`define ENABLE_HPS
+//`define ENABLE_IRDA
+`define ENABLE_KEY
+`define ENABLE_LEDR
+`define ENABLE_PS2
+`define ENABLE_SW
+//`define ENABLE_TD
+`define ENABLE_VGA
+
+module rotate_clockwise_testbench_vga(
+
+    /* Enables ADC - 3.3V */
+`ifdef ENABLE_ADC
+
+    output             ADC_CONVST,
+    output             ADC_DIN,
+    input              ADC_DOUT,
+    output             ADC_SCLK,
+
+`endif
+
+    /* Enables AUD - 3.3V */
+`ifdef ENABLE_AUD
+
+    input              AUD_ADCDAT,
+    inout              AUD_ADCLRCK,
+    inout              AUD_BCLK,
+    output             AUD_DACDAT,
+    inout              AUD_DACLRCK,
+    output             AUD_XCK,
+
+`endif
+
+    /* Enables CLOCK2  */
+`ifdef ENABLE_CLOCK2
+    input              CLOCK2_50,
+`endif
+
+    /* Enables CLOCK3 */
+`ifdef ENABLE_CLOCK3
+    input              CLOCK3_50,
+`endif
+
+    /* Enables CLOCK4 */
+`ifdef ENABLE_CLOCK4
+    input              CLOCK4_50,
+`endif
+
+    /* Enables CLOCK */
+`ifdef ENABLE_CLOCK
+    input              CLOCK_50,
+`endif
+
+    /* Enables DRAM - 3.3V */
+`ifdef ENABLE_DRAM
+    output      [12:0] DRAM_ADDR,
+    output      [1:0]  DRAM_BA,
+    output             DRAM_CAS_N,
+    output             DRAM_CKE,
+    output             DRAM_CLK,
+    output             DRAM_CS_N,
+    inout       [15:0] DRAM_DQ,
+    output             DRAM_LDQM,
+    output             DRAM_RAS_N,
+    output             DRAM_UDQM,
+    output             DRAM_WE_N,
+`endif
+
+    /* Enables FAN - 3.3V */
+`ifdef ENABLE_FAN
+    output             FAN_CTRL,
+`endif
+
+    /* Enables FPGA - 3.3V */
+`ifdef ENABLE_FPGA
+    output             FPGA_I2C_SCLK,
+    inout              FPGA_I2C_SDAT,
+`endif
+
+    /* Enables GPIO - 3.3V */
+`ifdef ENABLE_GPIO
+    inout     [35:0]         GPIO_0,
+    inout     [35:0]         GPIO_1,
+`endif
+
+
+    /* Enables HEX - 3.3V */
+`ifdef ENABLE_HEX
+    output      [6:0]  HEX0,
+    output      [6:0]  HEX1,
+    output      [6:0]  HEX2,
+    output      [6:0]  HEX3,
+    output      [6:0]  HEX4,
+    output      [6:0]  HEX5,
+`endif
+
+    /* Enables HPS */
+`ifdef ENABLE_HPS
+    inout              HPS_CONV_USB_N,
+    output      [14:0] HPS_DDR3_ADDR,
+    output      [2:0]  HPS_DDR3_BA,
+    output             HPS_DDR3_CAS_N,
+    output             HPS_DDR3_CKE,
+    output             HPS_DDR3_CK_N, //1.5V
+    output             HPS_DDR3_CK_P, //1.5V
+    output             HPS_DDR3_CS_N,
+    output      [3:0]  HPS_DDR3_DM,
+    inout       [31:0] HPS_DDR3_DQ,
+    inout       [3:0]  HPS_DDR3_DQS_N,
+    inout       [3:0]  HPS_DDR3_DQS_P,
+    output             HPS_DDR3_ODT,
+    output             HPS_DDR3_RAS_N,
+    output             HPS_DDR3_RESET_N,
+    input              HPS_DDR3_RZQ,
+    output             HPS_DDR3_WE_N,
+    output             HPS_ENET_GTX_CLK,
+    inout              HPS_ENET_INT_N,
+    output             HPS_ENET_MDC,
+    inout              HPS_ENET_MDIO,
+    input              HPS_ENET_RX_CLK,
+    input       [3:0]  HPS_ENET_RX_DATA,
+    input              HPS_ENET_RX_DV,
+    output      [3:0]  HPS_ENET_TX_DATA,
+    output             HPS_ENET_TX_EN,
+    inout       [3:0]  HPS_FLASH_DATA,
+    output             HPS_FLASH_DCLK,
+    output             HPS_FLASH_NCSO,
+    inout              HPS_GSENSOR_INT,
+    inout              HPS_I2C1_SCLK,
+    inout              HPS_I2C1_SDAT,
+    inout              HPS_I2C2_SCLK,
+    inout              HPS_I2C2_SDAT,
+    inout              HPS_I2C_CONTROL,
+    inout              HPS_KEY,
+    inout              HPS_LED,
+    inout              HPS_LTC_GPIO,
+    output             HPS_SD_CLK,
+    inout              HPS_SD_CMD,
+    inout       [3:0]  HPS_SD_DATA,
+    output             HPS_SPIM_CLK,
+    input              HPS_SPIM_MISO,
+    output             HPS_SPIM_MOSI,
+    inout              HPS_SPIM_SS,
+    input              HPS_UART_RX,
+    output             HPS_UART_TX,
+    input              HPS_USB_CLKOUT,
+    inout       [7:0]  HPS_USB_DATA,
+    input              HPS_USB_DIR,
+    input              HPS_USB_NXT,
+    output             HPS_USB_STP,
+`endif
+
+    /* Enables IRDA - 3.3V */
+`ifdef ENABLE_IRDA
+    input              IRDA_RXD,
+    output             IRDA_TXD,
+`endif
+
+    /* Enables KEY - 3.3V */
+`ifdef ENABLE_KEY
+    input       [3:0]  KEY,
+`endif
+
+    /* Enables LEDR - 3.3V */
+`ifdef ENABLE_LEDR
+    output      [9:0]  LEDR,
+`endif
+
+    /* Enables PS2 - 3.3V */
+`ifdef ENABLE_PS2
+    inout              PS2_CLK,
+    inout              PS2_CLK2,
+    inout              PS2_DAT,
+    inout              PS2_DAT2,
+`endif
+
+    /* Enables SW - 3.3V */
+`ifdef ENABLE_SW
+    input       [9:0]  SW,
+`endif
+
+    /* Enables TD - 3.3V */
+`ifdef ENABLE_TD
+    input             TD_CLK27,
+    input      [7:0]  TD_DATA,
+    input             TD_HS,
+    output            TD_RESET_N,
+    input             TD_VS,
+`endif
+
+    /* Enables VGA - 3.3V */
+`ifdef ENABLE_VGA
+    output      [7:0]  VGA_B,
+    output             VGA_BLANK_N,
+    output             VGA_CLK,
+    output      [7:0]  VGA_G,
+    output             VGA_HS,
+    output      [7:0]  VGA_R,
+    output             VGA_SYNC_N,
+    output             VGA_VS
+`endif
+  );
+
+
+  //=======================================================
+  //  REG/WIRE declarations
+  //=======================================================
+  logic [23:0] color;
+  logic CLOCK_74;
+
+  field_t test, disp; // field to test
+
+  logic     [10:0]    x, y; // x, y generated by VGA driver
+
+  // if enable use color_code
+  color_t             color_code;
+  logic               enable;
+
+  enum {idle, rotating, rotate_finish} state;
+  logic enableRotation, rotateValid, rotateFinish, rotateFailed;
+  //=======================================================
+  //  Structural coding
+  //=======================================================
+  tetromino_ctrl  t_ctrl, t_ctrl_rotated;
+
+  initial
+    begin
+      t_ctrl.tetromino.data =
+        { 4'b0000,
+          4'b0100,
+          4'b1110,
+          4'b0000,
+
+          4'b0000,
+          4'b0100,
+          4'b0110,
+          4'b0100,
+
+          4'b0000,
+          4'b0000,
+          4'b1110,
+          4'b0100,
+
+          4'b0000,
+          4'b0100,
+          4'b1100,
+          4'b0100 };
+      t_ctrl.idx.data = `TETROMINO_T_IDX;
+      t_ctrl.rotation = 0;
+      t_ctrl.coordinate.x = 2;
+      t_ctrl.coordinate.y = 10;
+      state = idle;
+    end
+
+  always @(posedge CLOCK_74)
+    begin
+      case (state)
+        idle:
+          if (~KEY[0])
+            state <= rotating;
+        rotating:
+          begin
+            if (rotateFinish)
+              begin
+                state <= rotate_finish;
+                if (~rotateFailed)
+                  t_ctrl <= t_ctrl_rotated;
+              end
+          end
+        rotate_finish:
+          if (KEY[0])
+            state <= idle;
+      endcase
+    end
+
+  rotate_clockwise rotater (
+                     CLOCK_74, state == rotating, rotateValid,
+                     t_ctrl,
+                     t_ctrl_rotated,
+                     rotateFailed, 
+							rotateFinish
+                   );
+
+  check_valid validifier (
+                t_ctrl_rotated,
+                test,
+                rotateValid
+              );
+
+  assign test.data = {
+           30'b111_111_111_111_111_111_111_111_111_111,
+           30'b111_111_111_111_111_111_111_111_111_111,
+           30'b111_111_111_111_000_111_111_111_111_111,
+           30'b111_111_111_111_000_111_111_111_111_111, // only this row
+           30'b111_111_111_111_000_111_111_111_111_111, // downward
+           30'b111_111_111_111_000_111_111_111_111_111, // should appear
+           30'b111_111_111_111_111_111_111_111_111_111,
+           30'b111_111_111_111_111_111_111_111_111_111,
+           30'b111_010_111_111_111_111_111_111_110_010,
+           30'b111_011_101_111_111_111_111_111_111_111,
+           30'b010_100_001_111_111_111_111_111_110_001,
+           30'b000_000_101_111_111_111_111_111_000_000,
+           30'b000_111_111_111_111_101_110_011_111_101,
+           30'b001_000_110_010_111_111_111_001_100_100,
+           30'b000_010_111_111_011_100_011_011_010_110,
+           30'b011_001_010_001_011_100_011_101_000_010,
+           30'b000_000_100_011_101_111_111_111_111_111,
+           30'b110_001_100_011_011_001_001_000_110_111,
+           30'b010_101_010_010_010_000_011_011_100_111,
+           30'b000_010_100_001_000_101_111_000_101_111,
+           30'b110_000_001_010_111_100_100_010_110_111,
+           30'b010_111_000_100_010_010_100_110_100_111
+         };
+
+
+
+  create_field createDisplay (.t_ctrl, .f(test), .f_out(disp));
+
+  // CLOCK_74 for 1280x720 display
+  pll_74 pll (CLOCK_50, SW[9], CLOCK_74);
+
+
+  // device under test
+  draw_field draw (
+               .clk(CLOCK_74),
+               .f(disp),
+               .x(x), .y(y),
+               .color(color_code),
+               .drawEnable(enable)
+             );
+
+  // map color code to color, if not enable, use C_FREE1 color code
+  color_mapper mapper (enable ? color_code : `C_FREE1, color);
+
+  // VGA controller
+  VGA_Ctrl vga  (
+             //  Host Side
+             color,
+             x,
+             y,
+             //  VGA Side
+             VGA_R,
+             VGA_G,
+             VGA_B,
+             VGA_HS,
+             VGA_VS,
+             VGA_SYNC_N,
+             VGA_BLANK_N,
+             VGA_CLK,
+             //  Control Signal
+             CLOCK_74,
+             ~SW[9]);
+endmodule
